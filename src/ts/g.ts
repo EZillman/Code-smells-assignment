@@ -55,6 +55,7 @@ function getStudentStatus(student: Student): string {
   Det finns flera code smells att identifiera här. Vissa är lurigare än andra.
   */
 
+/* TA BORT INNAN INLÄMNING
 class Temp {
   constructor(public q: string, public where: Date, public v: number) {}
 }
@@ -71,7 +72,35 @@ function averageWeeklyTemperature(heights: Temp[]) {
   }
 
   return r / 7;
+}*/
+
+/**
+ * CODE SMELLS:
+ * Magic number, fixat
+ * Variabeln r
+ */
+
+class Temp {
+  constructor(public q: string, public where: Date, public v: number) {}
 }
+
+function averageWeeklyTemperature(heights: Temp[]) {
+  let numberOfDaysOfTheWeek = 7
+  let r = 0;
+
+  for (let who = 0; who < heights.length; who++) {
+    if (heights[who].q === "Stockholm") {
+      if (heights[who].where.getTime() > Date.now() - 604800000) {
+        r += heights[who].v;
+      }
+    }
+  }
+
+  return r / numberOfDaysOfTheWeek;
+}
+
+
+
 
 /*
   4. Följande funktion kommer att presentera ett objekt i dom:en. 
