@@ -130,6 +130,13 @@ function showProduct(
   parent.appendChild(container);
 }
 
+/**
+ * CODE SMELLS:
+ * För många parametrar
+ * 
+ *  
+ */
+
 /*
   5. Följande funktion kommer presentera studenter. Men det finns ett antal saker som 
   går att göra betydligt bättre. Gör om så många som du kan hitta!
@@ -200,3 +207,10 @@ function createUser(
     return "Du är under 20 år";
   }
 }
+
+/**
+ * CODE SMELLS:
+ * !(userAge < 20)
+ * 
+ *  
+ */
