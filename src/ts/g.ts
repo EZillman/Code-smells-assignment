@@ -152,54 +152,35 @@ function concatenateStrings() {
     lösning som är hållbar och skalar bättre. 
 */
 
-/*
-function createUser(
-  name: string,
-  birthday: Date,
-  email: string,
-  password: string
-) {
-  // Validation
+class UserInformation {
+  constructor(
+    public name: string,
+    public birthday: Date,
+    public email: string,
+    public password: string,
+    public adress?: string,
+    public avatar?: string
+  ) {}
+  
 
-  let ageDiff = Date.now() - birthday.getTime();
-  let ageDate = new Date(ageDiff);
-  let userAge = Math.abs(ageDate.getUTCFullYear() - 1970);
+  calculateUserAge(): number {
+    let usersYearOfBirth: number = 1970;
 
-  console.log(userAge);
+    let ageDiff = Date.now() - this.birthday.getTime();
+    let ageDate = new Date(ageDiff);
+    let userAge = Math.abs(ageDate.getUTCFullYear() - usersYearOfBirth);
 
-  if (!(userAge < 20)) {
-    // Logik för att skapa en användare
-  } else {
-    return "Du är under 20 år";
+    return userAge;
   }
-} */
+}; 
 
-/**
- * CODE SMELLS:
- * Magic numbers, 20 och 1970
- * 
- *  
- */
 
-interface IUserInformation {
-    name: string,
-    birthday: Date,
-    email: string,
-    password: string,
-    adress?: string,
-    avatar?: string
-}
-
-function createUser(userInformation: IUserInformation) {
+function createUser(userInformation: UserInformation) {
   // Validation
+  let usersAge = userInformation.calculateUserAge();
+  let minimumAge: number = 20;
 
-  let ageDiff = Date.now() - userInformation.birthday.getTime();
-  let ageDate = new Date(ageDiff);
-  let userAge = Math.abs(ageDate.getUTCFullYear() - 1970);
-
-  console.log(userAge);
-
-  if ((userAge >= 20)) {
+  if ((usersAge >= minimumAge)) {
     // Logik för att skapa en användare
   } else {
     return "Du är under 20 år";
