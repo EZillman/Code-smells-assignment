@@ -4,18 +4,6 @@
   dessa hopplängder.
   */
 
-
-/* TA BORT INNAN INLÄMNING
-function getLength(jumpings: number[]): number {
-  let totalNumber = 0;
-
-  totalNumber = jumpings.reduce(
-    (jumpDistanceSoFar, currentJump) => jumpDistanceSoFar + currentJump
-  );
-
-  return totalNumber;
-} */
-
 function getLength(jumpings: number[]): number {
   return jumpings.reduce(
     (jumpDistanceSoFar, currentJump) => { return jumpDistanceSoFar + currentJump}
@@ -33,22 +21,15 @@ class Student {
     public handedInOnTime: boolean,
     public passed: boolean
   ) {}
-}
+};
 
 function getStudentStatus(student: Student): string {
-  student.passed =
-    student.name == "Sebastian"
-      ? student.handedInOnTime
-        ? true
-        : false
-      : false;
-
-  if (student.passed) {
-    return "VG";
+  if(student.name == 'Sebastian' && student.handedInOnTime && student.passed) {
+    return 'VG';
   } else {
-    return "IG";
+    return 'IG';
   }
-}
+};
 
 /*
   3. Variabelnamn är viktiga. Kika igenom följande kod och gör om och rätt.
@@ -187,6 +168,8 @@ function concatenateStrings() {
     fler och fler parametrar behöver läggas till? T.ex. avatar eller adress. Hitta en bättre
     lösning som är hållbar och skalar bättre. 
 */
+
+/*
 function createUser(
   name: string,
   birthday: Date,
@@ -206,11 +189,36 @@ function createUser(
   } else {
     return "Du är under 20 år";
   }
-}
+} */
 
 /**
  * CODE SMELLS:
- * !(userAge < 20)
+ * Magic numbers, 20 och 1970
  * 
  *  
  */
+
+interface IUserInformation {
+    name: string,
+    birthday: Date,
+    email: string,
+    password: string,
+    adress?: string,
+    avatar?: string
+}
+
+function createUser(userinformation: IUserInformation) {
+  // Validation
+
+  let ageDiff = Date.now() - userinformation.birthday.getTime();
+  let ageDate = new Date(ageDiff);
+  let userAge = Math.abs(ageDate.getUTCFullYear() - 1970);
+
+  console.log(userAge);
+
+  if ((userAge >= 20)) {
+    // Logik för att skapa en användare
+  } else {
+    return "Du är under 20 år";
+  }
+}
