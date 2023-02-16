@@ -55,29 +55,25 @@ function averageWeeklyTemperature(heights: Temp[]) {
   return r / 7;
 }*/
 
-/**
- * CODE SMELLS:
- * Magic number, fixat
- * Variabeln r
- */
 
 class Temp {
   constructor(public q: string, public where: Date, public v: number) {}
 }
 
 function averageWeeklyTemperature(heights: Temp[]) {
-  let numberOfDaysOfTheWeek = 7
-  let r = 0;
+  let numberOfWeekDays = 7
+  let aWeekInMilliseconds = 604800000;
+  let averageTemperature = 0;
 
   for (let who = 0; who < heights.length; who++) {
     if (heights[who].q === "Stockholm") {
-      if (heights[who].where.getTime() > Date.now() - 604800000) {
-        r += heights[who].v;
+      if (heights[who].where.getTime() > Date.now() - aWeekInMilliseconds) {
+        averageTemperature += heights[who].v;
       }
     }
   }
 
-  return r / numberOfDaysOfTheWeek;
+  return averageTemperature / numberOfWeekDays;
 }
 
 
@@ -88,35 +84,25 @@ function averageWeeklyTemperature(heights: Temp[]) {
   Se om du kan göra det bättre. Inte bara presentationen räknas, även strukturer.
   */
 
-function showProduct(
+interface IProductInfo{
   name: string,
   price: number,
   amount: number,
   description: string,
   image: string,
   parent: HTMLElement
-) {
-  let container = document.createElement("div");
-  let title = document.createElement("h4");
-  let pris = document.createElement("strong");
-  let imageTag = document.createElement("img");
+};
 
-  title.innerHTML = name;
-  pris.innerHTML = price.toString();
-  imageTag.src = image;
+function showProduct(productInfo: IProductInfo) {
+  const container = document.createElement('div');
+  container.innerHTML = `
+    <h4>${productInfo.name}</h4>
+    <img src='${productInfo.image}'>
+    <strong>${productInfo.price.toString()}</strong>`;
 
-  container.appendChild(title);
-  container.appendChild(imageTag);
-  container.appendChild(pris);
-  parent.appendChild(container);
-}
+    productInfo.parent.appendChild(container);
+};
 
-/**
- * CODE SMELLS:
- * För många parametrar
- * 
- *  
- */
 
 /*
   5. Följande funktion kommer presentera studenter. Men det finns ett antal saker som 
@@ -207,10 +193,10 @@ interface IUserInformation {
     avatar?: string
 }
 
-function createUser(userinformation: IUserInformation) {
+function createUser(userInformation: IUserInformation) {
   // Validation
 
-  let ageDiff = Date.now() - userinformation.birthday.getTime();
+  let ageDiff = Date.now() - userInformation.birthday.getTime();
   let ageDate = new Date(ageDiff);
   let userAge = Math.abs(ageDate.getUTCFullYear() - 1970);
 
