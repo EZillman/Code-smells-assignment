@@ -36,44 +36,24 @@ function getStudentStatus(student: Student): string {
   Det finns flera code smells att identifiera här. Vissa är lurigare än andra.
   */
 
-/* TA BORT INNAN INLÄMNING
 class Temp {
-  constructor(public q: string, public where: Date, public v: number) {}
+  constructor(public cityName: string, public dateOfMeasurement: Date, public temperature: number) {}
 }
 
-function averageWeeklyTemperature(heights: Temp[]) {
-  let r = 0;
-
-  for (let who = 0; who < heights.length; who++) {
-    if (heights[who].q === "Stockholm") {
-      if (heights[who].where.getTime() > Date.now() - 604800000) {
-        r += heights[who].v;
-      }
-    }
-  }
-
-  return r / 7;
-}*/
-
-
-class Temp {
-  constructor(public q: string, public where: Date, public v: number) {}
-}
-
-function averageWeeklyTemperature(heights: Temp[]) {
+function averageWeeklyTemperature(temperatures: Temp[]) {
   let numberOfWeekDays = 7
-  let aWeekInMilliseconds = 604800000;
-  let averageTemperature = 0;
+  let millisecondsInAWeek = 604800000;
+  let dailyTemperatures = 0;
 
-  for (let who = 0; who < heights.length; who++) {
-    if (heights[who].q === "Stockholm") {
-      if (heights[who].where.getTime() > Date.now() - aWeekInMilliseconds) {
-        averageTemperature += heights[who].v;
+  for (let i = 0; i < temperatures.length; i++) {
+    if (temperatures[i].cityName === "Stockholm") {
+      if (temperatures[i].dateOfMeasurement.getTime() > Date.now() - millisecondsInAWeek) {
+        dailyTemperatures += temperatures[i].temperature;
       }
     }
   }
 
-  return averageTemperature / numberOfWeekDays;
+  return dailyTemperatures / numberOfWeekDays;
 }
 
 
