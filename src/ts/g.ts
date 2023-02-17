@@ -31,6 +31,7 @@ function getStudentStatus(student: Student): string {
   }
 };
 
+
 /*
   3. Variabelnamn är viktiga. Kika igenom följande kod och gör om och rätt.
   Det finns flera code smells att identifiera här. Vissa är lurigare än andra.
@@ -57,8 +58,6 @@ function averageWeeklyTemperature(temperatures: Temp[]) {
 }
 
 
-
-
 /*
   4. Följande funktion kommer att presentera ett objekt i dom:en. 
   Se om du kan göra det bättre. Inte bara presentationen räknas, även strukturer.
@@ -74,13 +73,36 @@ interface IProductInfo{
 };
 
 function showProduct(productInfo: IProductInfo) {
-  const container = document.createElement('div');
-  container.innerHTML = `
-    <h4>${productInfo.name}</h4>
-    <img src='${productInfo.image}'>
-    <strong>${productInfo.price.toString()}</strong>`;
+  let container = document.createElement('div');
+  let title = createTitle(productInfo.name);
+  let price = createPrice(productInfo.price);
+  let image = createImg(productInfo.image);
 
-    productInfo.parent.appendChild(container);
+  container.appendChild(title);
+  container.appendChild(price);
+  container.appendChild(image);
+  productInfo.parent.appendChild(container);
+};
+
+function createTitle(name: string) {
+  let productTitle = document.createElement('h4') as HTMLHeadElement;
+  productTitle.innerHTML = name;
+
+  return productTitle;
+};
+
+function createPrice(price: number) {
+  let productPrice = document.createElement('strong') as HTMLElement;
+  productPrice.innerHTML = price.toString();
+
+  return productPrice;
+};
+
+function createImg(imageSrc: string) {
+  let productImage = document.createElement('img') as HTMLImageElement;
+  productImage.src = imageSrc;
+
+  return productImage;
 };
 
 
