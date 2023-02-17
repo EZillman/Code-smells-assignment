@@ -110,29 +110,29 @@ function createImg(imageSrc: string) {
   5. Följande funktion kommer presentera studenter. Men det finns ett antal saker som 
   går att göra betydligt bättre. Gör om så många som du kan hitta!
   */
+
 function presentStudents(students: Student[]) {
-  for (const student of students) {
-    if (student.handedInOnTime) {
-      let container = document.createElement("div");
-      let checkbox = document.createElement("input");
-      checkbox.type = "checkbox";
-      checkbox.checked = true;
+  for (const student of students){
+    const container = document.createElement('li');
+    let checkbox = createCheckbox(student.handedInOnTime);
+    container.appendChild(checkbox);
 
-      container.appendChild(checkbox);
-      let listOfStudents = document.querySelector("ul#passedstudents");
-      listOfStudents?.appendChild(container);
-    } else {
-      let container = document.createElement("div");
-      let checkbox = document.createElement("input");
-      checkbox.type = "checkbox";
-      checkbox.checked = false;
+    let listOfStudents = student.handedInOnTime
+    ? document.querySelector('ul#passedstudents')
+    : document.querySelector('ul#failedstudents');
 
-      container.appendChild(checkbox);
-      let listOfStudents = document.querySelector("ul#failedstudents");
-      listOfStudents?.appendChild(container);
+    listOfStudents?.appendChild(container);
     }
-  }
+};
+
+function createCheckbox(checkBoolean: boolean) {
+  let checkbox = document.createElement('input');
+  checkbox.type = 'checkbox';
+  checkbox.checked = checkBoolean;
+
+  return checkbox;
 }
+
 
 /*
   6. Skriv en funktion som skall slå ihop följande texter på ett bra sätt:
